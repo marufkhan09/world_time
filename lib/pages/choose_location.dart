@@ -11,30 +11,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   int counter = 0;
 
-  void getData() async {
-    //we are going to simulate a network request for a user.
-   String a = await Future.delayed(Duration(seconds: 3,),(){
-      return '1st';
-    });
-   String b = await Future.delayed(Duration(seconds: 2,),(){
-      return '2nd';
-    });
-
-
-    print('$a - $b');
-  }
-  //simulate network request to get bio of the username
-
-
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-    print('Init state function ran');
-
-  }
-
   @override
   Widget build(BuildContext context) {
     print('Build function ran : $counter times');
@@ -54,7 +30,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         });
       }, icon: Icon(
         Icons.add,
-      ), label: Text('counter: $counter')),
+      ), label: Text('Changed: $counter')),
     );
   }
 }
