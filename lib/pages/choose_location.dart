@@ -10,9 +10,20 @@ class ChooseLocation extends StatefulWidget {
 class _ChooseLocationState extends State<ChooseLocation> {
 
   int counter = 0;
+
+  void getData(){
+    //we are going to simulate a network request for a user.
+    Future.delayed(Duration(seconds: 3,),(){
+      print('Hello A!');
+    });
+    print('Hello B');
+  }
+
+
   @override
   void initState() {
     super.initState();
+    getData();
     print('Init state function ran');
 
   }
