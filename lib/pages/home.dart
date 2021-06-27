@@ -23,47 +23,67 @@ class _HomeState extends State<Home> {
     //so we are doing this first and then build up the widget tree
    data = ModalRoute.of(context)!.settings.arguments as Map;
    print(data);
+   //set background
+   String bgImage = data['isDayTime'] ? 'day.png' : 'night.png';
+   Color bgColor = data['isDayTime'] ? Colors.lightBlue : Colors.indigo;
+   Color tx = data['isDayTime'] ? Colors.black : Colors.grey.shade400;
 
     return Scaffold(
-      body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
-            child: Column(
-              children: [
-                TextButton.icon(
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/choose_location');
-                    },
-                    icon: Icon(
-                      Icons.edit_location,
-                    ),
-                    label: Text('Edit Location'),),
-
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      data['location'],
-                      style: TextStyle(
-                        fontSize: 28,
-                        letterSpacing: 2,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20,),
-                Text(
-                  data['time'],
-                  style: TextStyle(
-                    fontSize: 66,
+      backgroundColor: bgColor,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/$bgImage'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+          child: Column(
+            children: [
+              TextButton.icon(
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/choose_location');
+                  },
+                  icon: Icon(
+                    Icons.edit_location,
+                    color: tx,
                   ),
+                  label: Text('Edit Location',
+                  style: TextStyle(
+                    color: tx,
+                  ),
+                  ),
+              ),
 
+              SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    data['location'],
+                    style: TextStyle(
+                      fontSize: 28,
+                      letterSpacing: 2,
+                      color: tx,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20,),
+              Text(
+                data['time'],
+                style: TextStyle(
+                  fontSize: 66,
+                  color: tx,
                 ),
 
-              ],
-            ),
-          )),
+              ),
+
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
