@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/services/world_time.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({Key? key}) : super(key: key);
@@ -10,6 +11,22 @@ class ChooseLocation extends StatefulWidget {
 class _ChooseLocationState extends State<ChooseLocation> {
 
   int counter = 0;
+
+  List<WorldTime> location = [
+    WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin'),
+    WorldTime(location: 'London', flag: 'uk.png', url: 'Europe/London'),
+    WorldTime(location: 'Madrid', flag: 'Spain.jpeg', url: 'Europe/Madrid'),
+    WorldTime(location: 'Oslo', flag: 'norway.png', url: 'Europe/Oslo'),
+    WorldTime(location: 'Paris', flag: 'france.png', url: 'Europe/Paris'),
+    WorldTime(location: 'Sydney', flag: 'aus.png', url: 'Australia/Sydney'),
+    WorldTime(location: 'Melbourne', flag: 'aus.png', url: 'Australia/Melbourne'),
+    WorldTime(location: 'Tokyo', flag: 'japan.png', url: 'Asia/Tokyo'),
+    WorldTime(location: 'Singapore', flag: 'singapore.png', url: 'Asia/Singapore'),
+    WorldTime(location: 'Kolkata', flag: 'india.png', url: 'Asia/Kolkata'),
+    WorldTime(location: 'Dhaka', flag: 'BD.jpeg', url: 'Asia/Dhaka'),
+    WorldTime(location: 'Toronto', flag: 'canada.png', url: 'America/Toronto'),
+
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +40,27 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
       ),
       backgroundColor: Colors.grey[200],
-      body: TextButton.icon(
-          onPressed: (){
-        setState(() {
-          counter+=1;
-        });
-      }, icon: Icon(
-        Icons.add,
-      ), label: Text('Changed: $counter')),
+      body: ListView.builder(
+        itemCount: location.length,
+        itemBuilder: (context, index){
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+            child: Card(
+
+              child: ListTile(
+                onTap: (){
+                  print(location[index].location);
+
+                },
+                title: Text(location[index].location),
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage('assets/${location[index].flag}'),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
