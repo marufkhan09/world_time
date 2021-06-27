@@ -28,6 +28,18 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   ];
 
+  void updateTime(index) async {
+    WorldTime i = location[index];
+    await i.getData();
+    //navigate to home Screen and pass the data
+    Navigator.pop(context, {
+      'location': i.location,
+      'flag': i.flag,
+      'time': i.time,
+      'isDayTime': i.isDayTime,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     print('Build function ran : $counter times');
@@ -49,7 +61,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
               child: ListTile(
                 onTap: (){
-                  print(location[index].location);
+                  updateTime(index);
 
                 },
                 title: Text(location[index].location),

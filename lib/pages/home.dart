@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     //we are declaring data and overriding the empty map to populate with data send from
     //loading screen before we return anything from build statement.
     //so we are doing this first and then build up the widget tree
-   data = ModalRoute.of(context)!.settings.arguments as Map;
+   data = data.isNotEmpty ? data : ModalRoute.of(context)!.settings.arguments as Map;
    print(data);
    //set background
    String bgImage = data['isDayTime'] ? 'day.png' : 'night.png';
@@ -38,25 +38,9 @@ class _HomeState extends State<Home> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 220, 0, 0),
           child: Column(
             children: [
-              TextButton.icon(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/choose_location');
-                  },
-                  icon: Icon(
-                    Icons.edit_location,
-                    color: tx,
-                  ),
-                  label: Text('Edit Location',
-                  style: TextStyle(
-                    color: tx,
-                  ),
-                  ),
-              ),
-
-              SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -70,7 +54,8 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+
+              SizedBox(height: 40,),
               Text(
                 data['time'],
                 style: TextStyle(
@@ -78,6 +63,30 @@ class _HomeState extends State<Home> {
                   color: tx,
                 ),
 
+              ),
+              SizedBox(height: 100,),
+              TextButton.icon(
+                  onPressed: () async {
+                   dynamic result = await Navigator.pushNamed(context, '/choose_location');
+                   setState(() {
+                     data = {
+                       'time' : result['time'],
+                       'location' : result['location'],
+                       'isDayTime' : result['isDayTime'],
+                       'flag' : result['flag'],
+                     };
+                   });
+                  },
+                  icon: Icon(
+                    Icons.edit_location,
+                    color: tx,
+                  ),
+                  label: Text('Change Location',
+                  style: TextStyle(
+                    color: tx,
+                    fontSize: 20,
+                  ),
+                  ),
               ),
 
             ],
