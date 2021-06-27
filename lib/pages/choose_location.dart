@@ -58,8 +58,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
             child: Card(
-
+              color: Colors.green[100],
               child: ListTile(
+                contentPadding: EdgeInsets.all(25),
                 onTap: (){
                   updateTime(index);
 
